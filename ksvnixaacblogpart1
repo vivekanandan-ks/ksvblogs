@@ -60,16 +60,12 @@ Language-specific solutions like virtualenv help. But still the python versions 
 
 Containers🐳: 
 
-The actual problem lies in the package management level, but people did workarounds with VMs since it's a ready solution accepting the overhead😕. And people started to solve things from the VMs POV and made containers🐳. Container itself is a neat alternative for VMs giving more benefits than a VM. Yes, great. Now people who thought VM(virtualising hardware) as overhead started accepting the Container(virtualising kernel) as a better solution for scalability. Containers are used to solve the VMs but still an overhead for packaging and development environments😐. Especially to keep the environments in sync u have to manually intervene😮‍💨.
+The actual problem lies in the package management📦 level, but people did workarounds with VMs since it's a ready solution accepting the overhead😕. And people started to solve things from the VMs POV and made containers🐳. Container itself is a neat alternative for VMs giving more benefits than a VM. Yes, great. Now people who thought VM(virtualising hardware) as overhead started accepting the Container(virtualising kernel) as a better solution for scalability😞. Containers are used to solve the VMs but still an overhead for packaging and development environments😐. Especially to keep the environments in sync u have to manually intervene😮‍💨.
 
-In Short:
-Earlier: You made scripts to set things up in VMs
-Now: You make scripts to set things up in Docker except that it's easy to scale.
-
-Don't get me wrong, containers are a great way for deployments considering that's the only proper way for isolation other than VMs now. And the whole world is using docker and made their DevOps or any workflow that way. People went from VM route to Docker for solving scaling issues. But did not solve from the package management route. This seems to solve the dependency hell and scalability, but still did not solve the imperative small cracks I mentioned at the start and bring another problem "Lack of Reproducibility". Especially the Dockerfile.
+Don't get me wrong, containers are a great way for deployments👍 considering that's the only proper way for isolation other than VMs now. And the whole world is using docker and made their DevOps or any workflow that way. People went from VM route to Docker for solving scaling issues. But did not solve from the package management route🤧. This seems to solve the dependency hell and scalability, but still did not solve the imperative small cracks I mentioned at the start and bring another problem "Lack of Reproducibility". Especially the Dockerfile.
 
 
-Why Dockerfile is not good? (Guess the culprit again)
+Why Dockerfile📜 is not good? (Guess the culprit again😶‍🌫️)
 
 Let's have a very basic dockerfile example:
 
@@ -80,30 +76,30 @@ WORKDIR /app
 COPY . .
 CMD ["curl" "--version"]
 
-Dockerfile just again is another imperative thing which we just tell some instructions to arrive at a solution(Imperative). Now if u make 100 docker images from this file, all have the same environment right? Nope. If u create an OCI image with dockerfile today and after some months or years the 2 images vary because, again we use traditional package managers inside it , whose repo maintainers might :
-drop certain version because of end of LTS or 
-maybe they might have deleted wget or curl from their repo and 
-needless to say the change in their versions. 
+Dockerfile just again is another imperative thing😮‍💨 which we just tell some instructions to arrive at a solution(Imperative). Now if u make 100 docker images from this file, all have the same environment right? 🤧Nope😳. If u create an OCI image with dockerfile today and after some months or years the 2 images vary because, again we use traditional package managers inside it , whose repo maintainers might :
+drop certain version because of end of LTS ➡️🗑️📅 or
+maybe they might have deleted wget or curl from their repo ➡️❌📦 and 
+needless to say the change in their versions ➡️🔄🔢. 
 
-One clever way is to make a package for every version commit in the source code. But all these traditional package managers ship the binaries they have already built. So it's not storage efficient to keep GBs or TBs of data for different version of a single package curl. And pinning the version in these commands is tedious and of course won't work the same after months or years if something in the repo changed. And all the problems we mentioned earlier still lives inside this container. 
+One clever way is to make a package for every version commit in the source code ✨📦. But all these traditional package managers ship the binaries they have already built. So it's not storage efficient💾❌ to keep GBs or TBs of data for different version of a single package curl. And pinning the version in these commands is tedious😮‍💨 and of course won't work the same after months or years if something in the repo changed. And all the problems we mentioned earlier still lives inside this container😵. 
 
-Once again:
-Earlier: You made imperative steps(scripts) to set things up in VMs.
-Now: You make imperative steps(dockerfile) to set things up in Docker.
-Both creating the imperative cracks.
+Same Old Story, Different Surface:
+Earlier: You made imperative steps(scripts) to set things up in VMs.🙂
+Now: You make imperative steps(dockerfile) to set things up in Docker.🫠
+Both creating the imperative cracks💔.
  
-TLDR: Docker is okayish, but dockerfile isn't at all.
+TLDR: Docker is okayish😶, but dockerfile💀 isn't at all.
 
-How do we actually solve: 
-Imperative cracks? 
-Diverging environments? 
-Repetitive script failures? 
-Inconsistent builds across systems?
+How do we actually solve 🤔: 
+Imperative cracks? 💥🧱
+Diverging environments? ↔️🌍
+Repetitive script failures? 🔁❌📜
+Inconsistent builds across systems? ≠⚙️🖥️
 
 So how do we solve this decades of problem we face in every stage of SDLC, CICD, Deployments etc?
 Is there any actual practical stable reliable ready solution available to tackle literally all these changes faced in IT?
 Even if there is one, how many toolchain does it take to solve all these?
-What would the world look like if we can actually reliably say "It works on my machine"?
+What would the world look like if we can actually reliably say "It works on my machine"?😳
 Instead of accepting the overhead of maintaining the cracks and trading off cracks with isolation etc, is there any such omnipotent like solution to actually solve all these?
 
 The ultimate solution to all these is
