@@ -22,7 +22,7 @@ Container runtimes
 System setup scripts
 CI configurations, etc
 
-Even in the age of AI, we still face these same issues. Why? The reason for all these are the follows:
+Even in the age of AI, we still face these same issues. Why? The reason for all these are the follows.
 
 1.1) Divergent System (Known state ➡️ Unknown state)🧩
 
@@ -61,7 +61,7 @@ Because the environment on which they all work and depend on isn't the same. Whi
 ❗Reason 1) TLDR: It's the culprit Imperative again
 Even identical systems diverge over time as we install/update software/OS, run scripts etc etc. 
 So 100 different system even if started and maintained the same way it won't be the same after some point. 
-So over time we either lose track of changes or even if we track the change, the programs it depend on might vary and the scripts won't always work the same. Adjusting scripts for newer OS versions becomes routine 😮‍💨. That's just temporarily filling the cracks, not a perfect solution and also a headache to maintain and rollback if the script fails midway because of the nature of script(being imperative).
+So over time we either lose track of changes or even if we track the change, the programs it depend on might vary and the scripts won't always work the same. Adjusting scripts for newer OS versions becomes routine 😮‍💨. That's just temporarily filling the cracks, not a perfect solution and also a headache to maintain and rollback if the script fails midway because of the nature of script(being imperative and not fully portable).
 
 ❗Reason 2) Existing nature of the conventional Package managers and repo models 📦
 In most operating systems and languages, dependencies are managed globally. 
