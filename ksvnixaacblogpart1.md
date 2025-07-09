@@ -1,6 +1,7 @@
 Nix-(AaC) Anything as Code:
 Shells Packages Containers Systems & More - All Reproducible Declarative & Reliable
 
+
 1) Modern Chaos:
 
 Throughout history, we've solved countless challenges through evolving paradigms, innovative tools, and strategies. 
@@ -90,7 +91,9 @@ Especially to keep the environments in sync u have to manually intervene.
 Don't get me wrong, containers are a great way for deployments👍 considering that's the only proper way for isolation other than VMs now. 
 And the whole world is using docker and made their DevOps or any workflow that way. 
 People went from VM route to Docker for solving scaling issues. But did not solve from the package management route🤧. 
-This seems to solve the dependency hell and scalability, but still did not solve the imperative small cracks I mentioned at the start and bring another problem "Lack of Reproducibility". Especially the Dockerfile.
+This seems to solve the dependency hell and scalability, 
+but still did not solve the imperative small cracks I mentioned at the start and bring another problem "Lack of Reproducibility". 
+Especially the Dockerfile.
 
 
 Why Dockerfile📜 is not good? (Guess the culprit again)
@@ -106,29 +109,30 @@ CMD ["curl" "--version"]
 
 Dockerfile just again is another imperative thing which we just tell some instructions to arrive at a solution(Imperative). 
 Now if u make 100 docker images from this file, all have the same environment right? 🤧Nope😳. 
-If u create an OCI image with dockerfile today and after some months or years the 2 images vary because, again we use traditional package managers inside it , whose repo maintainers might :
-drop certain version because of end of LTS ➡️🗑️📅 or
-maybe they might have deleted wget or curl from their repo ➡️❌📦 and 
-needless to say the change in their versions ➡️🔄🔢. 
+If u create an OCI image with dockerfile today and after some months or years the 2 images vary because, 
+again we use traditional package managers inside it , whose repo maintainers might :
+drop certain version because of end of LTS  or
+maybe they might have deleted wget or curl from their repo  and 
+needless to say the change in their versions . 
 
-One clever way is to make a package for every version commit in the source code ✨📦. 
+One clever way is to make a package for every version commit in the source code . 
 But all these traditional package managers ship the binaries they have already built. 
-So it's not storage efficient💾❌ to keep GBs or TBs of data for different version of a single package curl. 
+So it's not storage efficient to keep GBs or TBs of data for different version of a single package curl. 
 And pinning the version in these commands is tedious and of course won't work the same after months or years if something in the repo changed. 
-And all the problems we mentioned earlier still lives inside this container😵. 
+And all the problems we mentioned earlier still lives inside this container. 
 
 Same Old Story, Different Surface:
-Earlier: You made imperative steps(scripts) to set things up in VMs.🙂
-Now: You make imperative steps(dockerfile) to set things up in Docker.🫠
+Earlier: You made imperative steps(scripts) to set & patch things up in VMs.🙂
+Now: You make imperative steps(dockerfile) to set & patch things up in Docker.🫠
 Both creating the imperative cracks💔.
  
-TLDR: Docker is nice😶, but dockerfile💀 isn't at all.
+TLDR: Docker is nice💥, but dockerfile💀 isn't.
 
 How do we actually solve 🤔: 
-Imperative cracks? 💥🧱
-Diverging environments? ↔️🌍
-Repetitive script failures? 🔁❌📜
-Inconsistent builds across systems? ≠⚙️🖥️
+Imperative cracks? 
+Diverging environments? ↔
+Repetitive script failures? 
+Inconsistent builds across systems? 
 
 So how do we solve this decades of problem we face in every stage of SDLC, CICD, Deployments etc?
 Is there any actual practical stable reliable ready solution available to tackle literally all these changes faced in IT?
@@ -138,5 +142,62 @@ Instead of accepting the overhead of maintaining the cracks etc,
 is there any such omnipotent like solution to actually solve all these?
 
 The ultimate solution to all these is
-Nix. The one dependency solution.
-Behold the power of Nix and how it changes the world in the history of IT.
+Nix - The Revolutionary Declarative system for Determinism, Reliability and Precise control.
+Behold the power of Nix and how it revolutionizes the world in the history of IT.
+
+
+Nix is popularly synonymous to these:
+(PF = Purely Functional -> Declarative -> Atomic -> Reliable)
+
+Nix - The PF Programming Language
+Nixpkgs - PF Package Manager
+NixOS - PF Linux Distro
+Specific Nix projects - PF [Shell, Containers, VMs, Custom ISOs etc] (Anything as Code)
+
+Nix takes declarative a step ahead through purely functional approach.
+
+Nix is a universal build bootstrapping tool, which brings a language agnostic way to build, cache and store artifacts.
+
+Artifacts can be - Shells, packages, containers, VMs, Custom ISOs etc
+
+Language Agnostic = Not tied to a single ecosystem like python, rust, etc
+
+Nix Store : The Immutable Read Only Store
+How it’s different from traditional PMs - Hashing, Symlinks. 
+Hashing - Thus coexistence of any number of versions of same package🔥.
+So every package builds from scratch?
+That would take a long time to build right?
+Caching - Reusing the artifacts 
+
+Public cache - cache.nixos.org, etc
+
+Local cache are stored in Nix store /nix/store along with other derivations.
+
+Derivations = Artifact produced by nix, could be anything from text, file, OS etc.
+
+Live graph: https://repology.org/repositories/graphs
+
+Nixpkgs search: https://search.nixos.org/packages
+(120,000 packages while preparing this PPT🔥)
+
+Guess the size of the whole nixpkgs repo? 🤔
+
+How many TBs or 100s of GBs?
+
+
+Answer ->
+It’s Just 5.05 GB🔥🔥🔥🔥🔥
+
+Because everything are just bootstrapped nix files, all text , with all revisions of older packages too. It’s super efficient.
+
+It caches from cache.nixos.org, but still u can build everything from scratch.
+
+Enough with the theory, let’s have bird’s-eye view of Nix in action and see how we create a whole world bootstrapped from a single dependency i.e Nix.
+Nix Shells: The virtual environment (Shells as Code)
+
+#Enter a virtual environment shell with cowsay package
+nix shell nixpkgs#cowsay
+
+#U can run the app only once
+echo "hello" | nix run nixpkgs#cowsay
+
